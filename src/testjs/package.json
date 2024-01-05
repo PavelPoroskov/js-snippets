@@ -1,0 +1,21 @@
+{
+  "name": "test",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "async": "^3.2.0",
+    "lambda-multipart-parser": "0.0.2",
+    "lodash": "^4.17.21",
+    "mime-types": "^2.1.24",
+    "moment": "^2.24.0",
+    "node-fetch": "^2.6.1",
+    "parse-multipart": "^1.0.4",
+    "uniqid": "^5.2.0"
+  }
+}
