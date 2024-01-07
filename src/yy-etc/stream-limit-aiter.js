@@ -55,7 +55,6 @@ const test = async (limit) => {
 
 const testAll = async () => {
   await test(10);
-
 };
 
 testAll();
