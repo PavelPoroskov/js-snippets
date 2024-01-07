@@ -1,61 +1,49 @@
-import { returnFirstSuccess } from './promise-chain.mjs';
+import assert from 'node:assert/strict';
+import test from 'node:test';
 
-const arrAllReject = [
-  () => Promise.reject(-1),
-  () => Promise.reject(-2),
-  () => Promise.reject(-3),
-  () => Promise.reject(-4),
-];
+import { returnFirstSuccess } from './try-ntimes-chain.mjs';
 
-const arrAllSuccess = [
-  () => 1,
-  () => 2,
-  () => 3,
-  () => 4,
-];
+test('returnFirstSuccess. first success', async (t) => {
+  const result = await returnFirstSuccess([
+    () => 1,
+    () => 2,
+    () => 3,
+  ]);
 
-const arrLastSuccess = [
-  () => Promise.reject(-1),
-  () => Promise.reject(-2),
-  () => Promise.reject(-3),
-  () => 4,
-];
+  assert.equal(result, 1);
+});
 
-const arrThirdSuccess = [
-  () => Promise.reject(-1),
-  () => Promise.reject(-2),
-  () => 3,
-  () => Promise.reject(-4),
-];
+test('returnFirstSuccess. second success', async (t) => {
+  const result = await returnFirstSuccess([
+    () => Promise.reject(-1),
+    () => 2,
+    () => 3,
+  ]);
 
-const testReturnFirstSuccess = async (arr, message ) => {
-  try {
-    const result = await returnFirstSuccess(arr)
-    console.log(`testReturnFirstSuccess (SUCCESS): ${message}, result ${result}`);  
-    return result;
-  } catch (err) {
-    console.log(`testReturnFirstSuccess (FAILED): ${message}, error ${err}`);  
-  }
-}
+  assert.equal(result, 2);
+});
 
-const test = async () => {
-  // const result = await Promise.reject(-1)
-  // .catch(err => {
-  //   console.log('second fn');
-  //   return Promise.reject(-2);
-  // })
-  // .catch(err => {
-  //   console.log('third fn');
-  //   return Promise.resolve(3);
-  // });
+test('returnFirstSuccess. third success', async (t) => {
+  const result = await returnFirstSuccess([
+    () => Promise.reject(-1),
+    () => Promise.reject(-2),
+    () => 3,
+  ]);
 
-  // console.log(result);
+  assert.equal(result, 3);
+});
 
-
-  // await testReturnFirstSuccess( arrAllReject, 'arrAllReject'); // must be error
-  // await testReturnFirstSuccess( arrAllSuccess, 'arrAllSuccess'); // must be first
-  await testReturnFirstSuccess( arrThirdSuccess, 'arrThirdSuccess'); // must be third
-  // await testReturnFirstSuccess( arrLastSuccess, 'arrLastSuccess'); // must be last
-}
-
-test();
+test('returnFirstSuccess. all failed', async (t) => {
+  await assert.rejects(
+    async () => {
+      await returnFirstSuccess([
+        () => Promise.reject(-1),
+        () => Promise.reject(-2),
+        () => Promise.reject(-3),
+      ])
+    },
+    (err) => {
+      return err === -3;
+    }
+  )
+});

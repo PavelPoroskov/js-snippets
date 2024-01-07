@@ -1,17 +1,17 @@
-export const tryNTimes = (mainFunction, attempts, msInterval = 0) => new Promise(
-  (resolve, reject) => {
+export const tryNTimes = (mainFunction, attempts=1, msDelay=0) => new Promise(
+  (fnResolve, fnReject) => {
     let attemptCounter = 0;
   
     const doAttempt = () => {
       attemptCounter += 1;
   
       mainFunction()
-        .then(resolve)
+        .then(fnResolve)
         .catch((error) => {
           if (attemptCounter < attempts) {
-            setTimeout(doAttempt, msInterval)
+            setTimeout(doAttempt, msDelay)
           } else {
-            reject(error);
+            fnReject(error);
           };
         });
     };
