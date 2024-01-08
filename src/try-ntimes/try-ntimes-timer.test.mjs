@@ -13,7 +13,7 @@ const makeCallFunctionFromArray = (callFunctionArray) => {
   }
 };
 
-test('tryNTimes-timer. first success', async (t) => {
+test('tryNTimes-timer. first success', async () => {
   const callFunctionFromArray = makeCallFunctionFromArray([
     () => 1,
     () => 2,
@@ -39,7 +39,7 @@ test('tryNTimes-timer. second success', async (t) => {
   );
 });
 
-test('tryNTimes-timer. third success', async (t) => {
+test('tryNTimes-timer. third success', async () => {
   const callFunctionFromArray = makeCallFunctionFromArray([
     () => Promise.reject(-1),
     () => Promise.reject(-2),
@@ -52,7 +52,7 @@ test('tryNTimes-timer. third success', async (t) => {
   );
 });
 
-test('tryNTimes-timer. all failed', async (t) => {
+test('tryNTimes-timer. all failed', async () => {
   const callFunctionFromArray = makeCallFunctionFromArray([
     () => Promise.reject(-1),
     () => Promise.reject(-2),

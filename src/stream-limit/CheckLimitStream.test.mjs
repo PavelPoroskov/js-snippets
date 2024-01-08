@@ -5,7 +5,7 @@ import { pipeline } from 'node:stream/promises';
 
 import { CheckLimitStream } from './CheckLimitStream.mjs';
 
-test('CheckLimitStream. limit exceeded', async (t) => {
+test('CheckLimitStream. limit exceeded', async () => {
   // common chunk in stream 64 Kb
   const LIMIT = 2 * 64 * 1024;
   const readable = Readable.from('A'.repeat(LIMIT + 1));
@@ -32,7 +32,7 @@ test('CheckLimitStream. limit exceeded', async (t) => {
   )
 });
 
-test('CheckLimitStream. limit not exceeded', async (t) => {
+test('CheckLimitStream. limit not exceeded', async () => {
   // common chunk in stream 64 Kb
   const LIMIT = 2 * 64 * 1024;
   const testInputString = 'A'.repeat(LIMIT);

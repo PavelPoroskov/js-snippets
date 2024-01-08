@@ -3,7 +3,7 @@ import test from 'node:test';
 
 import { returnFirstSuccess } from './try-ntimes-chain.mjs';
 
-test('returnFirstSuccess. first success', async (t) => {
+test('returnFirstSuccess. first success', async () => {
   const result = await returnFirstSuccess([
     () => 1,
     () => 2,
@@ -13,7 +13,7 @@ test('returnFirstSuccess. first success', async (t) => {
   assert.equal(result, 1);
 });
 
-test('returnFirstSuccess. second success', async (t) => {
+test('returnFirstSuccess. second success', async () => {
   const result = await returnFirstSuccess([
     () => Promise.reject(-1),
     () => 2,
@@ -23,7 +23,7 @@ test('returnFirstSuccess. second success', async (t) => {
   assert.equal(result, 2);
 });
 
-test('returnFirstSuccess. third success', async (t) => {
+test('returnFirstSuccess. third success', async () => {
   const result = await returnFirstSuccess([
     () => Promise.reject(-1),
     () => Promise.reject(-2),
@@ -33,7 +33,7 @@ test('returnFirstSuccess. third success', async (t) => {
   assert.equal(result, 3);
 });
 
-test('returnFirstSuccess. all failed', async (t) => {
+test('returnFirstSuccess. all failed', async () => {
   await assert.rejects(
     async () => {
       await returnFirstSuccess([
