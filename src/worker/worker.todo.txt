@@ -12,5 +12,5 @@
 //  worker-self-exit
 //  not-exiting worker? timeout
 
-// TODO using worker pool
-//    https://nodejs.org/api/async_context.html#using-asyncresource-for-a-worker-thread-pool
+// TODO
+//https://nodejs.org/dist/latest-v21.x/docs/api/vm.html#scriptrunincontextcontextifiedobject-options
