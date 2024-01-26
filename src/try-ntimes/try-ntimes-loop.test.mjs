@@ -1,7 +1,7 @@
 import assert from 'node:assert/strict';
 import test from 'node:test';
 
-import { tryNTimes } from './try-ntimes-timer.mjs';
+import { tryNTimes } from './try-ntimes-loop.mjs';
 
 const makeCallFunctionFromArray = (callFunctionArray) => {
   let callIndex = -1;
@@ -13,7 +13,7 @@ const makeCallFunctionFromArray = (callFunctionArray) => {
   }
 };
 
-test('tryNTimes-timer. first success', async () => {
+test('tryNTimes-loop. first success', async () => {
   const callFunctionFromArray = makeCallFunctionFromArray([
     () => 1,
     () => 2,
@@ -26,7 +26,7 @@ test('tryNTimes-timer. first success', async () => {
   );
 });
 
-test('tryNTimes-timer. second success', async () => {
+test('tryNTimes-loop. second success', async () => {
   const callFunctionFromArray = makeCallFunctionFromArray([
     () => Promise.reject(-1),
     () => 2,
@@ -39,7 +39,7 @@ test('tryNTimes-timer. second success', async () => {
   );
 });
 
-test('tryNTimes-timer. third success', async () => {
+test('tryNTimes-loop. third success', async () => {
   const callFunctionFromArray = makeCallFunctionFromArray([
     () => Promise.reject(-1),
     () => Promise.reject(-2),
@@ -52,7 +52,7 @@ test('tryNTimes-timer. third success', async () => {
   );
 });
 
-test('tryNTimes-timer. all failed', async () => {
+test('tryNTimes-loop. all failed', async () => {
   const callFunctionFromArray = makeCallFunctionFromArray([
     () => Promise.reject(-1),
     () => Promise.reject(-2),

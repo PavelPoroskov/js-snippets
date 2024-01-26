@@ -12,7 +12,7 @@ export const tryNTimes = (mainFunction, attempts=1, msDelay=0) => new Promise(
             setTimeout(doAttempt, msDelay)
           } else {
             fnReject(error);
-          };
+          }
         });
     };
   
