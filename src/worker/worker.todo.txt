@@ -14,3 +14,7 @@
 
 // TODO
 //https://nodejs.org/dist/latest-v21.x/docs/api/vm.html#scriptrunincontextcontextifiedobject-options
+
+
+// worker with timeout
+//  reuse worker with timeout, terminate
