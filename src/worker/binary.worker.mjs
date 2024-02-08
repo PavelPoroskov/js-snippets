@@ -3,8 +3,9 @@ import { parentPort } from 'node:worker_threads';
 
 parentPort.on('message', (input) => {
 
-  const inputBuffer = Buffer.from(input);
-  const inString = inputBuffer.toString('utf8');
+  // const inputBuffer = Buffer.from(input);
+  // const inString = inputBuffer.toString('utf8');
+  const inString = new TextDecoder('utf-8').decode(input);
   const reversedString = Array.from(inString).toReversed().join('');
   const outputBuffer = Buffer.from(reversedString, 'utf8');
 

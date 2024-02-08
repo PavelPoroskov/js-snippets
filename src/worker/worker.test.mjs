@@ -30,10 +30,15 @@ test('worker: input binary, output binary', async() => {
   // console.log('output.constructor.name', output.constructor.name) // Uint8Array
 
   const reversedString = Array.from(testString).toReversed().join('');
-  const outputBuffer = Buffer.from(reversedString, 'utf8');
 
-  assert(
-    Buffer.from(output).equals(outputBuffer),
+  // const outputBuffer = Buffer.from(reversedString, 'utf8');
+  // assert(
+  //   Buffer.from(output).equals(outputBuffer),
+  // );
+
+  assert.equal(
+    new TextDecoder('utf-8').decode(output),
+    reversedString,
   );
 });
 
