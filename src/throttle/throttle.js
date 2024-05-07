@@ -1,6 +1,19 @@
+function throttle0(func, delay) {
+  let timeout = null
+  
+  return () => {
+    if (!timeout) {
+      func()
+      timeout = setTimeout(() => {
+        timeout = null
+      }, delay)
+    }
+  }
+}
+
 // https://codedamn.com/news/javascript/throttling-in-javascript
 
-function throttle(func, delay) {
+function throttle1(func, delay) {
   let wait = false;
 
   return (...args) => {
@@ -16,30 +29,31 @@ function throttle(func, delay) {
   }
 }
 
-function throttle2(func, delay) {
-  let wait = false;
-  let storedArgs = null;
+// delay=300, 
+// throttle: guarantee interval between calls from [t0 t100 t200 t250 t310] t700 => t0, t250 at t300, t310 at t600, t700 at t900
+function throttle(func, pausedDelayMs) {
+  let isPause = false;
+  let duringPauseArgs = null;
 
-  function checkStoredArgs () {
-    if (storedArgs == null) {
-      wait = false;
-    } else {
-      func(...storedArgs);
-      storedArgs = null;
-      // ?? why not wait = false; because after call we have pause (wait = true)
-      setTimeout(checkStoredArgs, delay);
+  function endPause() {
+    isPause = false;
+
+    if (duringPauseArgs) {
+      func(...duringPauseArgs);
+      duringPauseArgs = null;
+      isPause = true;
+      setTimeout(endPause, pausedDelayMs);
     }
   }
 
   return (...args) => {
-    if (wait) {
-      storedArgs = args;
-      return;
+    if (!isPause) {
+      func(...args);
+      isPause = true;
+      setTimeout(endPause, pausedDelayMs);
+    } else {
+      // attempt to call during the pause
+      duringPauseArgs = args;
     }
-
-    // if !wait
-    func(...args);
-    wait = true;
-    setTimeout(checkStoredArgs, delay);
   }
 }
