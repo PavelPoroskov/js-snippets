@@ -1,0 +1,1 @@
+export const groupValues = (arr) => arr.flatMap((value, index, array) => index === 0 || value !== array[index - 1] ? [value]: [])
