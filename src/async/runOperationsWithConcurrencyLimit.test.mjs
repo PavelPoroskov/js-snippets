@@ -36,7 +36,7 @@ test('runOperationsWithConcurrencyLimit. 3 operations, limit 2', async (t) => {
   const waitAndReturn = makeWaitAndReturn();
 
   const results = await runOperationsWithConcurrencyLimit({
-    arOperationArguments: arArguments,
+    operationArgumentsList: arArguments,
     asyncOperation: waitAndReturn,
     concurrencyLimit: 2,
   });
@@ -60,7 +60,7 @@ test('runOperationsWithConcurrencyLimit. 3 operations, no limit', async (t) => {
   const waitAndReturn = makeWaitAndReturn();
 
   const results = await runOperationsWithConcurrencyLimit({
-    arOperationArguments: arArguments,
+    operationArgumentsList: arArguments,
     asyncOperation: waitAndReturn,
   });
 
@@ -83,7 +83,79 @@ test('runOperationsWithConcurrencyLimit. 3 operations, limit 1', async (t) => {
   const waitAndReturn = makeWaitAndReturn();
 
   const results = await runOperationsWithConcurrencyLimit({
-    arOperationArguments: arArguments,
+    operationArgumentsList: arArguments,
+    asyncOperation: waitAndReturn,
+    concurrencyLimit: 1,
+  });
+
+  assert.deepEqual(
+    results, 
+    [
+      { id: 1, msDelay: 600, finishOrder: 1 },
+      { id: 2, msDelay: 300, finishOrder: 2 },
+      { id: 3, msDelay: 200, finishOrder: 3 },
+    ],
+  );
+});
+
+
+test('runOperationsWithConcurrencyLimit(Iterator). 3 operations, limit 2', async (t) => {
+  const arArguments = [
+    { id: 1, msDelay: 600 },
+    { id: 2, msDelay: 300 },
+    { id: 3, msDelay: 200 },
+  ];
+  const waitAndReturn = makeWaitAndReturn();
+
+  const results = await runOperationsWithConcurrencyLimit({
+    operationArgumentsList: arArguments[Symbol.iterator](),
+    asyncOperation: waitAndReturn,
+    concurrencyLimit: 2,
+  });
+
+  assert.deepEqual(
+    results,
+    [
+      { id: 1, msDelay: 600, finishOrder: 3 },
+      { id: 2, msDelay: 300, finishOrder: 1 },
+      { id: 3, msDelay: 200, finishOrder: 2 },
+    ],
+  );
+});
+
+test('runOperationsWithConcurrencyLimit(Iterator). 3 operations, no limit', async (t) => {
+  const arArguments = [
+    { id: 1, msDelay: 600 },
+    { id: 2, msDelay: 300 },
+    { id: 3, msDelay: 200 },
+  ];
+  const waitAndReturn = makeWaitAndReturn();
+
+  const results = await runOperationsWithConcurrencyLimit({
+    operationArgumentsList: arArguments[Symbol.iterator](),
+    asyncOperation: waitAndReturn,
+  });
+
+  assert.deepEqual(
+    results,
+    [
+      { id: 1, msDelay: 600, finishOrder: 3 },
+      { id: 2, msDelay: 300, finishOrder: 2 },
+      { id: 3, msDelay: 200, finishOrder: 1 },
+    ]
+  );
+});
+
+test('runOperationsWithConcurrencyLimit(Iterator). 3 operations, limit 1', async (t) => {
+  const arArguments = [
+    { id: 1, msDelay: 600 },
+    { id: 2, msDelay: 300 },
+    { id: 3, msDelay: 200 },
+  ];
+  const waitAndReturn = makeWaitAndReturn();
+
+  const results = await runOperationsWithConcurrencyLimit({
+    operationArgumentsList: arArguments[Symbol.iterator](),
     asyncOperation: waitAndReturn,
     concurrencyLimit: 1,
   });
