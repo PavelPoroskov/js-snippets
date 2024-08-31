@@ -49,4 +49,4 @@ export const runOperationsWithConcurrencyLimit = async ({
     .map(([i,v]) => v)
 };
 
-
+// TODO onError show more detail: where was error, what was cause. runOperationsWithConcurrencyLimit hide cause of error
