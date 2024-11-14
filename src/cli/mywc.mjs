@@ -21,7 +21,7 @@ const wordCount = matchResult
 console.log('words: ', wordCount)
 
 // ./mywc.mjs
-//    should end but blocked. wc is blocked alsow
+//    should end but blocked. wc is blocked also
 //
 // ./mywc.mjs file
 //    should show result from file

@@ -7,16 +7,16 @@ export class ExtraSet extends Set {
 }
 
 export class ExtraMap extends Map {
-  sum(key, addValue) {
+  accumulateSum(key, addValue) {
     super.set(key, (super.get(key) || 0) + addValue)
   }
-  update(key, updateObj) {
+  accumulateMerge(key, updateObj) {
     super.set(key, {
       ...super.get(key),
       ...updateObj,
     })
   }
-  concat(key, inItem) {
+  accumulateList(key, inItem) {
     const item = inItem === undefined ? [] : inItem
     // item -- single item or array
     const ar = super.get(key) || []

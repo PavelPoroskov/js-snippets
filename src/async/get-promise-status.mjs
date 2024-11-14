@@ -1,1 +1,1 @@
-// get promise status with Promise.race(). see MDN
+// TODO get promise status with Promise.race(). see MDN
