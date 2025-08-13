@@ -11,3 +11,9 @@ const isArrayEqual = (arrayA, arrayB) => {
 
   return false;
 };
+
+const isNotEmptyArray = (ar) => Array.isArray(ar) && ar.length > 0
+
+const isNotEmptyObject = (obj) => isObject(obj) && Object.keys(obj).length > 0
+
+const isNotEmpty = (v) => isNotEmptyObject(v) || isNotEmptyArray(v)

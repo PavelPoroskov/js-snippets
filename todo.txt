@@ -5,3 +5,15 @@ TODO	immutability. nested structures
   freeze
 
 TODO tests for debounce, throttle
+
+TODO debug src/worker-postMessage/binary.worker.test.mjs
+  pass binary data to worker, get binary data from worker
+
+Structure
+---------
+Sync
+ASync
+  promise patterns
+Multi-Thread
+  workers
+  child-process
