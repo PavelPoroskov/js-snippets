@@ -5,11 +5,12 @@ parentPort.on('message', (input) => {
 
   // const inputBuffer = Buffer.from(input);
   // const inString = inputBuffer.toString('utf8');
-  const inString = new TextDecoder('utf-8').decode(input);
-  const reversedString = Array.from(inString).toReversed().join('');
-  const outputBuffer = Buffer.from(reversedString, 'utf8');
 
-  parentPort.postMessage(outputBuffer, [outputBuffer.buffer]);
+  // const inString = new TextDecoder('utf-8').decode(input);
+  // const reversedString = Array.from(inString).toReversed().join('');
+  // const outputBuffer = Buffer.from(reversedString, 'utf8');
+
+  parentPort.postMessage(input.length);
 
   // const log = [];
   // log.push(`typeof input: ${typeof input}`) // object
